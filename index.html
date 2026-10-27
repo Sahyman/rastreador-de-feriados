@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rastreador de Feriados</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🗓️ Rastreador de Feriados & Lembretes</h1>
+      <p>Consulte feriados internacionais e gerencie suas datas comemorativas personalizadas.</p>
+    </header>
+
+    <!-- SEÇÃO 1: API Nager.Date -->
+    <section class="card">
+      <h2>🌍 Consultar Feriados Oficiais por País (Nager.Date)</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="api-country">País:</label>
+          <select id="api-country">
+            <option value="BR">Brasil</option>
+            <option value="US">Estados Unidos</option>
+            <option value="PT">Portugal</option>
+            <option value="AR">Argentina</option>
+            <option value="ES">Espanha</option>
+            <option value="FR">França</option>
+            <option value="JP">Japão</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="api-year">Ano:</label>
+          <input type="number" id="api-year" value="2026" min="2000" max="2100">
+        </div>
+        <button id="btn-fetch-api" class="btn btn-primary">Buscar Feriados</button>
+      </div>
+
+      <div id="api-results" class="grid-list"></div>
+    </section>
+
+    <!-- SEÇÃO 2: CRUD Firebase Firestore -->
+    <section class="card">
+      <h2>📝 Meus Lembretes e Datas Cadastradas (Firestore)</h2>
+
+      <!-- Formulário de Cadastro / Edição -->
+      <form id="crud-form" class="crud-form">
+        <input type="hidden" id="event-id">
+        <div class="form-group">
+          <label for="event-title">Título do Evento / Lembrete:</label>
+          <input type="text" id="event-title" placeholder="Ex: Aniversário ou Feriado Local" required>
+        </div>
+        <div class="form-group">
+          <label for="event-date">Data:</label>
+          <input type="date" id="event-date" required>
+        </div>
+        <div class="form-group">
+          <label for="event-category">Categoria:</label>
+          <select id="event-category">
+            <option value="Feriado Local">Feriado Local</option>
+            <option value="Aniversário">Aniversário</option>
+            <option value="Lembrete">Lembrete Pessoal</option>
+            <option value="Trabalho">Trabalho / Estudo</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="submit" id="btn-save" class="btn btn-success">Salvar Registro</button>
+          <button type="button" id="btn-cancel" class="btn btn-secondary" style="display: none;">Cancelar Edição</button>
+        </div>
+      </form>
+
+      <!-- Lista de itens cadastrados no Firestore -->
+      <h3>Registros Salvos</h3>
+      <ul id="firestore-list" class="item-list"></ul>
+    </section>
+  </div>
+
+  <!-- Firebase SDK e Lógica Principal -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
